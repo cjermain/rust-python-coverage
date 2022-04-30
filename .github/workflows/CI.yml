@@ -29,11 +29,13 @@ jobs:
       - name: Install cargo-llvm-cov
         uses: taiki-e/install-action@cargo-llvm-cov
       - name: Setup virtual environment
+        shell: bash
         run: |
           python -m venv venv
           source venv/bin/activate
           pip install -r requirements.txt
       - name: Run coverage
+        shell: bash
         run: |
           source venv/bin/activate
           source <(cargo llvm-cov show-env --export-prefix)
