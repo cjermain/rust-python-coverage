@@ -9,7 +9,7 @@ jobs:
     name: Coverage for ${{ matrix.os }}
     strategy:
       matrix:
-        os: ["ubuntu", "windows", "macos"]
+        os: ["ubuntu"]
     runs-on: ${{ matrix.os }}-latest
     steps:
       - uses: actions/checkout@v2
@@ -29,10 +29,13 @@ jobs:
       - name: Install cargo-llvm-cov
         uses: taiki-e/install-action@cargo-llvm-cov
       - name: Setup virtual environment
-        run: pip install -r requirements.txt
-      - name: Run coverage
-        shell: bash
         run: |
+          python -m venv venv
+          source venv/bin/activate
+          pip install -r requirements.txt
+      - name: Run coverage
+        run: |
+          source venv/bin/activate
           source <(cargo llvm-cov show-env --export-prefix)
           cargo llvm-cov --package=foobar clean --workspace
           cargo test --package=foobar
