@@ -96,8 +96,9 @@ jobs:
       - name: Run coverage
         run: |
           source venv/bin/activate
-          cargo llvm-cov --package=foobar clean
-          cargo llvm-cov --package=foobar --no-report
+          source <(cargo llvm-cov show-env --export-prefix)
+          cargo llvm-cov --package=foobar clean --workspace
+          cargo test --package=foobar
           maturin develop
           pytest tests
           cargo llvm-cov --package=foobar --no-run --lcov --output-path coverage.lcov
