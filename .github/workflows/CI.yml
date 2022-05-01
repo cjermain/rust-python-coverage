@@ -44,5 +44,5 @@ jobs:
           cargo llvm-cov --package=foobar --no-run --lcov --output-path coverage.lcov
       - uses: codecov/codecov-action@v3
         with:
-          file: coverage.lcov
+          files: coverage.lcov,coverage.xml
           name: ${{ matrix.os }}
