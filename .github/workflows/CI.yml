@@ -40,7 +40,7 @@ jobs:
           cargo llvm-cov --package=foobar clean --workspace
           cargo test --package=foobar
           maturin develop
-          pytest tests
+          pytest tests --cov=foobar --cov-report xml
           cargo llvm-cov --package=foobar --no-run --lcov --output-path coverage.lcov
       - uses: codecov/codecov-action@v3
         with:
