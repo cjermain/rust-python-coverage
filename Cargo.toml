@@ -10,3 +10,6 @@ crate-type = ["cdylib"]
 
 [dependencies]
 pyo3 = { version = "0.16.1", features = ["extension-module"] }
+
+[package.metadata.maturin]
+python-source = "python"
