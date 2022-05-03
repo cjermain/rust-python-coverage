@@ -55,9 +55,9 @@ pip install -r requirements.txt
 
 The Rust tests use `cargo test`. To measure the full Rust coverage from Python
 tests, `cargo-llvm-cov` provides a set of environment variables that cause the
-Rust binaries to include instrumentation coverage that will save profile files
-when they are used. This means that any program that exercises the binaries
-can be measured for the effect it has on coverage.
+Rust binaries to include [instrumentation coverage](https://doc.rust-lang.org/stable/rustc/instrument-coverage.html)
+that will save profile files when they are used. This means that any program
+that exercises the binaries can be measured for the effect it has on coverage.
 
 ```
 $ cargo llvm-cov show-env --export-prefix
