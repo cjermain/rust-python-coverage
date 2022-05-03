@@ -1,4 +1,5 @@
-from .foobar import sum_as_string
+from .foobar import pyo3_sum
 
-def multiply(a, b):
-    return a * b
+def py_sum(a, b):
+    """Returns the sum of two numbers (Python only)"""
+    return a + b
