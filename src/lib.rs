@@ -6,10 +6,15 @@ fn rust_sum(a: i64, b: i64) -> i64 {
     a + b
 }
 
+/// Returns the sum of two numbers (only Rust)
+fn rust_sum3(a: usize, b: usize) -> usize {
+    a + b
+}
+
 /// Returns the sum of two numbers, wrapped by pyo3
 #[pyfunction]
 fn pyo3_sum(a: usize, b: usize) -> PyResult<usize> {
-    Ok(a + b)
+    Ok(rust_sum3(a,b))
 }
 
 /// A Python module implemented in Rust.
