@@ -8,7 +8,11 @@ fn rust_sum(a: i64, b: i64) -> i64 {
 
 /// Returns the sum of two numbers (only Rust)
 fn rust_sum3(a: usize, b: usize) -> usize {
-    a + b
+    a + b 
+}
+
+fn rust_sum4(a: usize,b: usize) -> usize{
+    a + b + b
 }
 
 /// Returns the sum of two numbers, wrapped by pyo3
