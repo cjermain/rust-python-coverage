@@ -11,9 +11,16 @@ jobs:
       matrix:
         os: ["ubuntu"]
     runs-on: ${{ matrix.os }}-latest
-    if: ${{ github.event.issue.pull_request }}
+    if: github.event.issue.pull_request && contains(github.event.comment.body, '/codecov')
     steps:
-      - uses: actions/checkout@v2
+      - name: Get PR branch
+        uses: xt0rted/pull-request-comment-branch@v1
+        id: comment-branch
+
+      - name: Checkout PR branch
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ steps.comment-branch.outputs.head_ref }}
       - uses: actions/setup-python@v2
         with:
           python-version: "3.10"
@@ -34,20 +41,22 @@ jobs:
         run: |
           python -m venv venv
           source venv/bin/activate
-          pip install -r py-polars/requirements-dev.txt
+          pip install -r requirements.txt
       - name: Run coverage
         run: |
           source venv/bin/activate
           source <(cargo llvm-cov show-env --export-prefix)
           export CARGO_TARGET_DIR=$CARGO_LLVM_COV_TARGET_DIR
           export CARGO_INCREMENTAL=1
-          cd py-polars
           cargo llvm-cov clean --workspace
           cargo test
           maturin develop
           pytest tests --cov=polars --cov-report xml
           cargo llvm-cov --no-run --lcov --output-path coverage.lcov
-      - uses: codecov/codecov-action@v3
+      - uses: codecov/codecov-action@v4
         with:
           files: coverage.lcov,coverage.xml
           name: ${{ matrix.os }}
+          override_pr: 1
+          override_commit: ${{ steps.comment-branch.outputs.head_sha }}
+          token: ${{ secrets.CODECOV_TOKEN }}
