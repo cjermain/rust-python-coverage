@@ -47,7 +47,8 @@ jobs:
           maturin develop
           pytest tests --cov=polars --cov-report xml
           cargo llvm-cov --no-run --lcov --output-path coverage.lcov
-      - uses: codecov/codecov-action@v3
+      - uses: codecov/codecov-action@v4
         with:
           files: coverage.lcov,coverage.xml
           name: ${{ matrix.os }}
+          override_pr: 1
