@@ -58,3 +58,4 @@ jobs:
           files: coverage.lcov,coverage.xml
           name: ${{ matrix.os }}
           override_pr: 1
+          token: ${{ secrets.CODECOV_TOKEN }}
