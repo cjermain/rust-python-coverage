@@ -13,7 +13,14 @@ jobs:
     runs-on: ${{ matrix.os }}-latest
     if: github.event.issue.pull_request && contains(github.event.comment.body, '/codecov')
     steps:
-      - uses: actions/checkout@v2
+      - name: Get PR branch
+        uses: xt0rted/pull-request-comment-branch@v1
+        id: comment-branch
+
+      - name: Checkout PR branch
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ steps.comment-branch.outputs.head_ref }}
       - uses: actions/setup-python@v2
         with:
           python-version: "3.10"
