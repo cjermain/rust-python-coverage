@@ -15,6 +15,18 @@ fn rust_sum5(a: usize) -> usize{
     a
 }
 
+fn rust_sum35(a: usize) -> usize{
+    a
+}
+
+fn rust_sum25(a: usize) -> usize{
+    a
+}
+
+fn rust_sum15(a: usize) -> usize{
+    a
+}
+
 fn rust_sum4(a: usize,b: usize) -> usize{
     a + b + b
 }
