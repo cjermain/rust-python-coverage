@@ -11,7 +11,7 @@ jobs:
       matrix:
         os: ["ubuntu-latest"]
     runs-on: ${{ matrix.os }}-latest
-    if: ${{ github.event.issue.pull_request}}
+    if: github.event.issue.pull_request && contains(github.event.comment.body, '/codecov')
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
