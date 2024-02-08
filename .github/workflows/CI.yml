@@ -57,6 +57,6 @@ jobs:
         with:
           files: coverage.lcov,coverage.xml
           name: ${{ matrix.os }}
-          override_pr: 1
+          override_pr: ${{ github.event.issue.number }}
           override_commit: ${{ steps.comment-branch.outputs.head_sha }}
           token: ${{ secrets.CODECOV_TOKEN }}
