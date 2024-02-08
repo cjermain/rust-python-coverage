@@ -10,7 +10,7 @@ jobs:
     name: Coverage for ${{ matrix.os }}
     strategy:
       matrix:
-        os: ["ubuntu-latest"]
+        os: ["ubuntu"]
     runs-on: ${{ matrix.os }}-latest
     if: ${{ github.event.issue.pull_request  && contains(github.event.comment.body, 'bot /codecov')}}
     steps:
