@@ -1,16 +1,18 @@
 name: CI
 
+name: pull request comment
 on:
-  push:
-  pull_request:
+  issue_comment:                                     
+    types: [created, edited, deleted]
 
 jobs:
   coverage:
     name: Coverage for ${{ matrix.os }}
     strategy:
       matrix:
-        os: ["ubuntu"]
+        os: ["ubuntu-latest"]
     runs-on: ${{ matrix.os }}-latest
+    if: ${{ github.event.issue.pull_request  && contains(github.event.comment.body, 'bot /codecov')}}
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
@@ -33,17 +35,18 @@ jobs:
         run: |
           python -m venv venv
           source venv/bin/activate
-          pip install -r requirements.txt
+          pip install -r py-polars/requirements-dev.txt
       - name: Run coverage
         run: |
           source venv/bin/activate
           source <(cargo llvm-cov show-env --export-prefix)
           export CARGO_TARGET_DIR=$CARGO_LLVM_COV_TARGET_DIR
           export CARGO_INCREMENTAL=1
+          cd py-polars
           cargo llvm-cov clean --workspace
           cargo test
           maturin develop
-          pytest tests --cov=foobar --cov-report xml
+          pytest tests --cov=polars --cov-report xml
           cargo llvm-cov --no-run --lcov --output-path coverage.lcov
       - uses: codecov/codecov-action@v3
         with:
