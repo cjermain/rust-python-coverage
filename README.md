@@ -1,3 +1,30 @@
+# NOTE:
+
+This creates a minimum reproducible example for this `cargo-llvm-cov` issue: [warning: N functions have mismatched data](https://github.com/taiki-e/cargo-llvm-cov/issues/329)
+
+Trying to keep it reproducible, a nix dev-shell and run-script are provided.
+
+```
+nix develop .
+./run-cov.sh
+```
+
+```console
+ cargo llvm-cov report --html --open --output-dir .
+warning: 1 functions have mismatched data
+
+    Finished report saved to ./html
+     Opening ./html/index.html
+
+```
+
+I recommend the [Determinate Nix Installer](https://github.com/DeterminateSystems/nix-installer) if you need nix.
+
+-------
+-------
+
+# [Original README.md](https://github.com/cjermain/rust-python-coverage)
+
 # rust-python-coverage
 Example PyO3 project with automated test coverage for Rust and Python
 
