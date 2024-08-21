@@ -5,12 +5,11 @@
 > - Updated the coverage output paths for clarity
 > - Added a `run-cov.sh` script that also explains some detail on coverage data generation
 > - Added a `nix` devshell for easy setup
+> - Added a `clean.sh` script to clean up generated artificats
 
 > [!NOTE]
-> `cargo-llvm-cov` will generatte this warning when used with [nightly toolchains](https://github.com/taiki-e/cargo-llvm-cov/issues/329)
-> `warning: N functions have mismatched data`
-> This can be reproduced by checking out the `cargo-llvm-cov-nightly` branch
-
+> Try running `clean.sh` if you encounter any "weird" errors.
+> If the error persists, blow out the `.venv` and `~/.cargo/bin` directories and try again.
 
 -------
 -------
