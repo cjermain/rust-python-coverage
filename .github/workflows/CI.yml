@@ -43,9 +43,9 @@ jobs:
           cargo llvm-cov clean --workspace
           cargo test
           maturin develop
-          pytest tests --cov=foobar --cov-report xml
-          cargo llvm-cov --no-run --lcov --output-path coverage.lcov
+          pytest tests --cov=foobar --cov-report lcov:python-coverage.lcov
+          cargo llvm-cov report --lcov --output-path rust-coverage.lcov
       - uses: codecov/codecov-action@v3
         with:
-          files: coverage.lcov,coverage.xml
+          files: python-coverage.lcov,rust-coverage.lcov
           name: ${{ matrix.os }}
