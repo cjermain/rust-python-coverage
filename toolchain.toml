@@ -1,6 +1,6 @@
 # toolchain.toml
 [toolchain]
-channel = "nightly"
+channel = "stable"
 components = [ "rustfmt", "rust-src", "llvm-tools" ]
 profile = "default"
 
