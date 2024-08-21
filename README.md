@@ -17,8 +17,8 @@
 # rust-python-coverage
 Example PyO3 project with automated test coverage for Rust and Python
 
-[![CI](https://github.com/cjermain/rust-python-coverage/actions/workflows/CI.yml/badge.svg)](https://github.com/cjermain/rust-python-coverage/actions/workflows/CI.yml)
-[![codecov](https://codecov.io/gh/cjermain/rust-python-coverage/branch/main/graph/badge.svg?token=NWHDJ22L8I)](https://codecov.io/gh/cjermain/rust-python-coverage)
+[![CI](https://github.com/Michael-J-Ward/rust-python-coverage/actions/workflows/CI.yml/badge.svg)](https://github.com/Michael-J-Ward/rust-python-coverage/actions/workflows/CI.yml)
+[![codecov](https://codecov.io/github/Michael-J-Ward/rust-python-coverage/graph/badge.svg?token=K4T59SGTQX)](https://codecov.io/github/Michael-J-Ward/rust-python-coverage)
 
 This repository shows how to set up a continuous-integration job for measuring
 coverage over a project using [PyO3](https://github.com/PyO3/pyo3). Based on
@@ -129,8 +129,7 @@ The last step of this process happens in the CI, where we upload both coverage
 files to CodeCov. [Merging reports](https://docs.codecov.com/docs/merging-reports)
 is an automatic feature of CodeCov, so the final view shows the combined view.
 
-https://codecov.io/gh/cjermain/rust-python-coverage
-
+https://codecov.io/github/Michael-J-Ward/rust-python-coverage
 
 ## Appendix
 
