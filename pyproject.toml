@@ -11,3 +11,7 @@ classifiers = [
     "Programming Language :: Python :: Implementation :: PyPy",
 ]
 
+
+[tool.maturin]
+python-source = "python"
+module-name = "foobar._internal"

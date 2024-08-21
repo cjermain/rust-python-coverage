@@ -2,7 +2,7 @@
 use pyo3::prelude::*;
 
 /// Returns the sum of two numbers (only Rust)
-fn rust_sum(a: i64, b: i64) -> i64 {
+pub fn rust_sum(a: i64, b: i64) -> i64 {
     a + b
 }
 
@@ -14,7 +14,7 @@ fn pyo3_sum(a: usize, b: usize) -> PyResult<usize> {
 
 /// A Python module implemented in Rust.
 #[pymodule]
-fn foobar(_py: Python, m: &PyModule) -> PyResult<()> {
+fn _internal(_py: Python, m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(pyo3_sum, m)?)?;
     Ok(())
 }
