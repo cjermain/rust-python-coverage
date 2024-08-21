@@ -1,29 +1,19 @@
-# NOTE:
 
-This creates a minimum reproducible example for this `cargo-llvm-cov` issue: [warning: N functions have mismatched data](https://github.com/taiki-e/cargo-llvm-cov/issues/329)
+> [!NOTE]
+> This is fork of [Colin Jermain's original](https://github.com/cjermain/rust-python-coverage) with the following changes:
+> - Updated to latest `PyO3`, `maturin`, and `pytest-cov` dependencies
+> - Updated the coverage output paths for clarity
+> - Added a `run-cov.sh` script that also explains some detail on coverage data generation
+> - Added a `nix` devshell for easy setup
 
-Trying to keep it reproducible, a nix dev-shell and run-script are provided.
+> [!NOTE]
+> `cargo-llvm-cov` will generatte this warning when used with [nightly toolchains](https://github.com/taiki-e/cargo-llvm-cov/issues/329)
+> `warning: N functions have mismatched data`
+> This can be reproduced by checking out the `cargo-llvm-cov-nightly` branch
 
-```
-nix develop .
-./run-cov.sh
-```
-
-```console
- cargo llvm-cov report --html --open --output-dir .
-warning: 1 functions have mismatched data
-
-    Finished report saved to ./html
-     Opening ./html/index.html
-
-```
-
-I recommend the [Determinate Nix Installer](https://github.com/DeterminateSystems/nix-installer) if you need nix.
 
 -------
 -------
-
-# [Original README.md](https://github.com/cjermain/rust-python-coverage)
 
 # rust-python-coverage
 Example PyO3 project with automated test coverage for Rust and Python
@@ -63,7 +53,17 @@ Each area defines a simple function for adding two numbers:
 In order to get full test coverage of all of the functions, both the Python
 and Rust tests need to be run. We'll show the process step by step.
 
+### Setup: Installing Dependencies
+
 Before getting started, install `cargo-llvm-cov`:
+
+> [!NOTE]
+> If you use nix flakes, you can use the provided devshell to install the dependencies
+> ```
+> nix develop .
+> ```
+> If you are interested in `nix`, I recommend the [Determinate Nix Installer](https://github.com/DeterminateSystems/nix-installer).
+
 
 ```
 rustup component add llvm-tools-preview
@@ -79,6 +79,8 @@ python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
 ```
+
+### Setup: Preparing `cargo-llvm-cov` environment variables
 
 The Rust tests use `cargo test`. To measure the full Rust coverage from Python
 tests, `cargo-llvm-cov` provides a set of environment variables that cause the
@@ -111,11 +113,11 @@ With these environment variables set up, we are ready to run the coverage
 measurements.
 
 ```
-cargo llvm-cov clean --workspace
+cargo llvm-cov clean --workspace -v
 cargo test
 maturin develop
-pytest tests --cov=foobar --cov-report xml
-cargo llvm-cov --no-run --lcov --output-path coverage.lcov
+pytest tests --cov=foobar --cov-report lcov:python-coverage.lcov
+cargo llvm-cov --no-run --lcov --output-path rust-coverage.lcov
 ```
 
 First the `cargo llvm-cov clean` command removes any previous profiling
@@ -129,3 +131,16 @@ files to CodeCov. [Merging reports](https://docs.codecov.com/docs/merging-report
 is an automatic feature of CodeCov, so the final view shows the combined view.
 
 https://codecov.io/gh/cjermain/rust-python-coverage
+
+
+## Appendix
+
+If you'd like to *save* the html report for the Rust code, you can run the following command:
+
+```console
+ cargo llvm-cov report --html --open --output-dir .
+warning: 1 functions have mismatched data
+
+    Finished report saved to ./html
+     Opening ./html/index.html
+```
