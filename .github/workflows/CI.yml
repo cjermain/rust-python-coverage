@@ -12,11 +12,13 @@ jobs:
         os: ["ubuntu"]
     runs-on: ${{ matrix.os }}-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
-          python-version: "3.10"
+          python-version: "3.12"
           cache: "pip"
+      - name: Install uv
+        uses: astral-sh/setup-up@v5
       - uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
@@ -25,27 +27,24 @@ jobs:
           components: llvm-tools-preview
       - name: Install cargo-llvm-cov
         uses: taiki-e/install-action@cargo-llvm-cov
-      - uses: Swatinem/rust-cache@v1
+      - uses: Swatinem/rust-cache@v2
         with:
           key: coverage-cargo-${{ matrix.os }}
         continue-on-error: true
       - name: Setup virtual environment
         run: |
-          python -m venv venv
-          source venv/bin/activate
-          pip install -r requirements.txt
+          uv sync
       - name: Run coverage
         run: |
-          source venv/bin/activate
           source <(cargo llvm-cov show-env --export-prefix)
           export CARGO_TARGET_DIR=$CARGO_LLVM_COV_TARGET_DIR
           export CARGO_INCREMENTAL=1
           cargo llvm-cov clean --workspace
           cargo test
-          maturin develop
-          pytest tests --cov=foobar --cov-report xml
+          uv run -- maturin develop
+          uv run -- pytest tests --cov=foobar --cov-report xml
           cargo llvm-cov --no-run --lcov --output-path coverage.lcov
-      - uses: codecov/codecov-action@v3
+      - uses: codecov/codecov-action@v5
         with:
           files: coverage.lcov,coverage.xml
           name: ${{ matrix.os }}
