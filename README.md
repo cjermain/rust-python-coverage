@@ -86,7 +86,7 @@ cargo llvm-cov clean --workspace
 cargo test
 uv run -- maturin develop --uv
 uv run -- pytest tests --cov=foobar --cov-report xml
-cargo llvm-cov --no-run --lcov --output-path coverage.lcov
+cargo llvm-cov report --lcov --output-path coverage.lcov
 ```
 
 First the `cargo llvm-cov clean` command removes any previous profiling
