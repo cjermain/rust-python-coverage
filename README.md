@@ -48,9 +48,7 @@ system. This installs `pytest`, which is able to measure the coverage of the
 Python only sections and also exercise the PyO3 bound Rust code.
 
 ```
-python3 -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
+uv sync
 ```
 
 The Rust tests use `cargo test`. To measure the full Rust coverage from Python
@@ -86,9 +84,9 @@ measurements.
 ```
 cargo llvm-cov clean --workspace
 cargo test
-maturin develop
-pytest tests --cov=foobar --cov-report xml
-cargo llvm-cov --no-run --lcov --output-path coverage.lcov
+uv run -- maturin develop --uv
+uv run -- pytest tests --cov=foobar --cov-report xml
+cargo llvm-cov report --lcov --output-path coverage.lcov
 ```
 
 First the `cargo llvm-cov clean` command removes any previous profiling
