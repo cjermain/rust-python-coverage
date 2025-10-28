@@ -13,6 +13,7 @@ fn pyo3_sum(a: usize, b: usize) -> PyResult<usize> {
 }
 
 /// A Python module implemented in Rust.
+#[cfg_attr(coverage, coverage(off))]
 #[pymodule]
 fn _foobar(_py: Python, m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(pyo3_sum, m)?)?;
