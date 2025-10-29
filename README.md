@@ -99,6 +99,11 @@ The last step of this process happens in the CI, where we upload both coverage
 files to CodeCov. [Merging reports](https://docs.codecov.com/docs/merging-reports)
 is an automatic feature of CodeCov, so the final view shows the combined view.
 
+**Note:** Starting with `codecov-action@v4`, a `CODECOV_TOKEN` is required for
+uploading coverage reports. Add your token to GitHub repository secrets (see
+[Adding the Codecov token](https://docs.codecov.com/docs/adding-the-codecov-token))
+and reference it in the workflow with `token: ${{ secrets.CODECOV_TOKEN }}`.
+
 # Excluding code from coverage
 
 The `#[pymodule]` initialization function in `src/lib.rs` is surrounded by
