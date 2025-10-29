@@ -44,5 +44,6 @@ jobs:
           cargo llvm-cov report --lcov --output-path coverage.lcov
       - uses: codecov/codecov-action@v5
         with:
+          token: ${{ secrets.CODECOV_TOKEN }}
           files: coverage.lcov,coverage.xml
           name: ${{ matrix.os }}
