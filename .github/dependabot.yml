@@ -1,0 +1,61 @@
+version: 2
+
+updates:
+  # Rust dependencies
+  - package-ecosystem: "cargo"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "cjermain"
+    labels:
+      - "dependencies"
+      - "rust"
+    commit-message:
+      prefix: "cargo"
+      include: "scope"
+    groups:
+      pyo3:
+        patterns:
+          - "pyo3*"
+
+  # Python dependencies via uv
+  - package-ecosystem: "uv"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "cjermain"
+    labels:
+      - "dependencies"
+      - "python"
+    commit-message:
+      prefix: "uv"
+      include: "scope"
+    groups:
+      testing:
+        patterns:
+          - "pytest*"
+      build-tools:
+        patterns:
+          - "maturin*"
+
+  # GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "cjermain"
+    labels:
+      - "dependencies"
+      - "github-actions"
+    commit-message:
+      prefix: "ci"
+      include: "scope"
