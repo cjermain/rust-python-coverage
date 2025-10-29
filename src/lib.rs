@@ -13,11 +13,13 @@ fn pyo3_sum(a: usize, b: usize) -> PyResult<usize> {
 }
 
 /// A Python module implemented in Rust.
+// LCOV_EXCL_START - PyO3 module initialization cannot be directly tested (see rust-lang/rust#84605)
 #[pymodule]
 fn _foobar(_py: Python, m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(pyo3_sum, m)?)?;
     Ok(())
 }
+// LCOV_EXCL_STOP
 
 #[cfg(test)]
 mod tests {
