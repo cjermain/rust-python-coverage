@@ -42,7 +42,7 @@ jobs:
           uv run -- maturin develop --uv
           uv run -- pytest tests --cov=foobar --cov-report xml
           cargo llvm-cov report --lcov --output-path coverage.lcov
-      - uses: codecov/codecov-action@v6
+      - uses: codecov/codecov-action@v7
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: coverage.lcov,coverage.xml
