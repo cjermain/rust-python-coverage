@@ -3,6 +3,7 @@ Example PyO3 project with automated test coverage for Rust and Python
 
 [![CI](https://github.com/cjermain/rust-python-coverage/actions/workflows/CI.yml/badge.svg)](https://github.com/cjermain/rust-python-coverage/actions/workflows/CI.yml)
 [![codecov](https://codecov.io/gh/cjermain/rust-python-coverage/branch/main/graph/badge.svg?token=NWHDJ22L8I)](https://codecov.io/gh/cjermain/rust-python-coverage)
+[![Dependabot](https://img.shields.io/badge/Dependabot-enabled-025E8C?logo=dependabot)](https://github.com/cjermain/rust-python-coverage/blob/main/.github/dependabot.yml)
 
 This repository shows how to set up a continuous-integration job for measuring
 coverage over a project using [PyO3](https://github.com/PyO3/pyo3). Based on
